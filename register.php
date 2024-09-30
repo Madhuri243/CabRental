@@ -15,10 +15,10 @@ if(isset($_POST['signUp'])){
         echo "Email Address Already Exists !";
      }
      else{
-        $insertQuery="INSERT INTO users(firstName,lastName,email,password)
-                       VALUES ('$Name','$usename','$email','$password')";
+        $insertQuery="INSERT INTO users(Name,username,email,password)
+                       VALUES ('$Name','$username','$email','$password')";
             if($conn->query($insertQuery)==TRUE){
-                header("location: index.php");
+                header("location:http://localhost/log/login.html");
             }
             else{
                 echo "Error:".$conn->error;
@@ -27,17 +27,17 @@ if(isset($_POST['signUp'])){
 }
 
 if(isset($_POST['signIn'])){
-   $email=$_POST['email'];
+   $username=$_POST['username'];
    $password=$_POST['password'];
    $password=md5($password) ;
    
-   $sql="SELECT * FROM users WHERE email='$email' and password='$password'";
+   $sql="SELECT * FROM users WHERE username='$username' and password='$password'";
    $result=$conn->query($sql);
    if($result->num_rows>0){
     session_start();
     $row=$result->fetch_assoc();
-    $_SESSION['email']=$row['email'];
-    header("Location:http://127.0.0.1:5500/prj/index%20(3).html");
+    $_SESSION['username']=$row['ussername'];
+    header("Location:http://127.0.0.1:5500/index.html");
     exit();
    }
    else{
